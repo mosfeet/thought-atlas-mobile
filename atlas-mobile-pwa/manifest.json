@@ -1,0 +1,10 @@
+{
+  "name": "Thought Atlas Mobile",
+  "short_name": "Atlas Mobile",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f6f4ef",
+  "theme_color": "#f6f4ef",
+  "description": "AI生成済みのAtlas JSONをスマホで読むためのローカルPWA",
+  "icons": []
+}
