@@ -1,10 +1,10 @@
-const CACHE_NAME = "thought-atlas-mobile-v15";
+const CACHE_NAME = "thought-atlas-mobile-v16";
 const ASSETS = [
   "./",
   "./index.html",
-  "./style.css?v=15",
+  "./style.css?v=16",
   "./visuals-v15.css?v=15",
-  "./app-v14.js?v=14",
+  "./app-v16.js?v=16",
   "./app-v15.js?v=15",
   "./manifest.json",
   "./data/sample-atlas.json"
