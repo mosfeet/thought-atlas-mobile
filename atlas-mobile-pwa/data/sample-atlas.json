@@ -1,0 +1,131 @@
+{
+  "version": "atlas_bundle_v1",
+  "meta": {
+    "title": "Sample Thought Atlas",
+    "note": "This is fictional sample data for testing. It is a hypothesis map, not a diagnosis."
+  },
+  "thought_nodes": [
+    {
+      "id": "node-career-learning",
+      "type": "surface",
+      "title": "仕事と学習の接続",
+      "summary": "日々の仕事で得た経験を、次の学習テーマや将来の選択に接続したいという関心の仮説。",
+      "category": "仕事",
+      "importance": 0.86,
+      "confidence": 0.76,
+      "shadow_level": 0.22,
+      "tension_level": 0.38,
+      "exploration_level": 0.72,
+      "keywords": ["仕事", "学習", "キャリア", "将来"],
+      "evidence": ["仕事で得た気づきをメモに残している", "次に学ぶことを探している"],
+      "counter_evidence": ["具体的な職種変更を望んでいるとは限らない"]
+    },
+    {
+      "id": "node-creative-output",
+      "type": "surface",
+      "title": "創作と発信",
+      "summary": "考えたことを文章、作品、企画などの形で外に出したいという関心の仮説。",
+      "category": "創作",
+      "importance": 0.78,
+      "confidence": 0.7,
+      "shadow_level": 0.34,
+      "tension_level": 0.42,
+      "exploration_level": 0.8,
+      "keywords": ["創作", "発信", "文章", "企画"],
+      "evidence": ["アイデアを形にしたいという記述がある", "発信方法を検討している"],
+      "counter_evidence": ["公開よりも個人用メモを重視している可能性もある"]
+    },
+    {
+      "id": "node-rest-and-rhythm",
+      "type": "surface",
+      "title": "休息と生活リズム",
+      "summary": "活動量を増やしたい一方で、休息や生活リズムも崩したくないという関心の仮説。",
+      "category": "生活",
+      "importance": 0.82,
+      "confidence": 0.74,
+      "shadow_level": 0.48,
+      "tension_level": 0.66,
+      "exploration_level": 0.46,
+      "keywords": ["休息", "生活", "習慣", "リズム"],
+      "evidence": ["やりたいことと疲れのバランスについて触れている", "習慣化への関心がある"],
+      "counter_evidence": ["一時的な忙しさに由来する可能性もある"]
+    }
+  ],
+  "latent_beliefs": [
+    {
+      "id": "belief-growth-with-stability",
+      "title": "成長したいが、土台は崩したくない",
+      "summary": "新しい挑戦や学習を望みつつ、生活や心身の安定も大切にしたいという価値観の仮説。",
+      "importance": 0.84,
+      "confidence": 0.72,
+      "shadow_level": 0.5,
+      "tension_level": 0.74,
+      "exploration_level": 0.68,
+      "keywords": ["成長", "安定", "生活", "挑戦"],
+      "evidence": ["将来への関心と生活リズムへの関心が同時に出ている"],
+      "counter_evidence": ["安定より変化を優先する場面もあるかもしれない"],
+      "interpretation": "挑戦と安定の両方を見直すことで、無理のない進み方を探せる可能性がある。"
+    },
+    {
+      "id": "belief-thinking-through-output",
+      "title": "出力しながら考えたい",
+      "summary": "頭の中だけで整理するより、書く・作る・話すことで理解を深めたいという前提の仮説。",
+      "importance": 0.76,
+      "confidence": 0.68,
+      "shadow_level": 0.28,
+      "tension_level": 0.36,
+      "exploration_level": 0.78,
+      "keywords": ["出力", "整理", "創作", "理解"],
+      "evidence": ["メモや発信への関心がある", "考えを形にする話題がある"],
+      "counter_evidence": ["内省だけで十分なテーマもあるかもしれない"],
+      "interpretation": "出力は評価されるためだけでなく、本人が自分の考えを見直す手段になっている可能性がある。"
+    }
+  ],
+  "tensions": [
+    {
+      "id": "tension-growth-stability",
+      "title": "成長 vs 安定",
+      "summary": "新しい挑戦へ進みたい気持ちと、生活や休息を守りたい気持ちがぶつかっていそうな葛藤の仮説。",
+      "from": "node-career-learning",
+      "to": "node-rest-and-rhythm",
+      "strength": 0.78,
+      "status": "active",
+      "evidence": ["学習や将来への関心と、休息やリズムへの関心が同時にある"],
+      "question": "どのくらいの変化なら、土台を崩さず続けられるか？"
+    },
+    {
+      "id": "tension-output-privacy",
+      "title": "発信したい vs 守りたい",
+      "summary": "考えを外に出したい一方で、自分の内面や未完成な考えを守りたい気持ちもありそうな葛藤の仮説。",
+      "from": "node-creative-output",
+      "to": "belief-thinking-through-output",
+      "strength": 0.62,
+      "status": "active",
+      "evidence": ["創作や発信への関心と、見直し可能な形で扱いたい姿勢がある"],
+      "question": "どの範囲なら安心して外に出せるか？"
+    }
+  ],
+  "edges": [
+    {
+      "source": "node-career-learning",
+      "target": "belief-growth-with-stability",
+      "type": "evidence_for",
+      "strength": 0.78,
+      "reason": "仕事や学習への関心は、成長したい価値観に接続している。"
+    },
+    {
+      "source": "node-rest-and-rhythm",
+      "target": "belief-growth-with-stability",
+      "type": "tension_with",
+      "strength": 0.74,
+      "reason": "休息や生活リズムへの関心は、成長欲求とのバランスを作っている。"
+    },
+    {
+      "source": "node-creative-output",
+      "target": "belief-thinking-through-output",
+      "type": "evidence_for",
+      "strength": 0.72,
+      "reason": "創作や発信は、出力しながら考えたい前提の具体例になっている。"
+    }
+  ]
+}
