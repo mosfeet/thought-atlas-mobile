@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#f6f4ef">
     <title>Thought Atlas Mobile</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css?v=15">
+    <link rel="stylesheet" href="style.css?v=16">
     <link rel="stylesheet" href="visuals-v15.css?v=15">
   </head>
   <body>
@@ -36,115 +36,46 @@
           </ol>
 
           <section class="prompt-panel" aria-labelledby="prompt-title">
-            <div class="panel-title">
-              <h3 id="prompt-title">1. AIに渡すプロンプト</h3>
-              <button id="copyPromptButton" class="small-button" type="button">コピー</button>
-            </div>
+            <div class="panel-title"><h3 id="prompt-title">1. AIに渡すプロンプト</h3><button id="copyPromptButton" class="small-button" type="button">コピー</button></div>
             <p class="detail-muted">このプロンプトをコピーして、普段使っているAIに貼ります。コピーが拒否された場合は本文が全選択されるので、そのまま手動コピーしてください。</p>
             <textarea id="promptPreview" class="prompt-preview" readonly aria-label="AIに貼るプロンプト"></textarea>
           </section>
 
           <section class="paste-panel" aria-labelledby="paste-title">
-            <div class="panel-title">
-              <h3 id="paste-title">2. AIの返答をコピペ</h3>
-              <span id="parseStatus" class="status-badge neutral">待機中</span>
-            </div>
+            <div class="panel-title"><h3 id="paste-title">2. AIの返答をコピペ</h3><span id="parseStatus" class="status-badge neutral">待機中</span></div>
             <p class="detail-muted">AIが返した文章を全文貼り付けてください。説明文が混ざっていても、Atlas JSON部分を自動で探します。</p>
             <textarea id="atlasTextInput" class="paste-input" aria-label="AIの返答を貼り付け" placeholder="AIの返答をここに全文コピペ"></textarea>
             <button id="parseTextButton" class="primary-button" type="button">貼り付け内容を読み込む</button>
           </section>
 
-          <div class="import-panel">
-            <label class="file-picker">
-              <input id="fileInput" type="file" accept=".json,application/json">
-              <span>JSONファイルを選択</span>
-            </label>
-            <button id="loadSampleButton" type="button">サンプルを読み込む</button>
-          </div>
-
-          <div class="notice">
-            <strong>このアプリは診断ではありません。</strong>
-            <span>読み込んだ内容を、見直せる仮説の地図として表示します。違和感は編集メモとして残せます。</span>
-          </div>
+          <div class="import-panel"><label class="file-picker"><input id="fileInput" type="file" accept=".json,application/json"><span>JSONファイルを選択</span></label><button id="loadSampleButton" type="button">サンプルを読み込む</button></div>
+          <div class="notice"><strong>このアプリは診断ではありません。</strong><span>読み込んだ内容を、見直せる仮説の地図として表示します。違和感は編集メモとして残せます。</span></div>
 
           <section class="privacy-panel" aria-labelledby="privacy-title">
-            <div class="panel-title">
-              <h3 id="privacy-title">Privacy</h3>
-              <span class="status-badge good">ローカル処理</span>
-            </div>
-            <ul class="privacy-list">
-              <li>このアプリはAI解析を行いません。</li>
-              <li>貼り付けたAI返答やAtlasは外部サーバーへ送信しません。</li>
-              <li>読み込んだAtlasと編集メモは、このブラウザのLocalStorageに保存されます。</li>
-              <li>AIへ素材を渡す部分は、ユーザー自身が使うAIサービスの管理下です。</li>
-            </ul>
-            <p class="app-version">Local PWA v0.2.15</p>
+            <div class="panel-title"><h3 id="privacy-title">Privacy</h3><span class="status-badge good">ローカル処理</span></div>
+            <ul class="privacy-list"><li>このアプリはAI解析を行いません。</li><li>貼り付けたAI返答やAtlasは外部サーバーへ送信しません。</li><li>読み込んだAtlasと編集メモは、このブラウザのLocalStorageに保存されます。</li><li>AIへ素材を渡す部分は、ユーザー自身が使うAIサービスの管理下です。</li></ul>
+            <p class="app-version">Local PWA v0.2.16</p>
             <button id="clearDataButton" class="secondary-button danger-button" type="button">この端末のAtlasを削除</button>
           </section>
 
           <section class="health-panel" aria-labelledby="health-title">
-            <div class="panel-title">
-              <h3 id="health-title">Data Health</h3>
-              <span id="healthBadge" class="status-badge neutral">未読み込み</span>
-            </div>
+            <div class="panel-title"><h3 id="health-title">Data Health</h3><span id="healthBadge" class="status-badge neutral">未読み込み</span></div>
             <div id="healthSummary" class="health-summary">Atlas JSONを読み込むとチェック結果が表示されます。</div>
             <ul id="healthList" class="health-list"></ul>
             <button id="copyRepairPromptButton" class="secondary-button" type="button" hidden>修正依頼プロンプトをコピー</button>
           </section>
         </section>
 
-        <section class="view" id="view-tours" aria-labelledby="tours-title">
-          <div class="section-heading">
-            <h2 id="tours-title">Tours</h2>
-            <p>地図を4つの観点から読みます。表示は断定ではなく、見直すための候補です。</p>
-          </div>
-          <div class="segmented" id="tourTabs" role="tablist" aria-label="Tour filters"></div>
-          <div id="tourList" class="card-list"></div>
-        </section>
-
-        <section class="view" id="view-cards" aria-labelledby="cards-title">
-          <div class="section-heading">
-            <h2 id="cards-title">Cards</h2>
-            <p>話題、判断基準、未整理の問いをカードで確認します。</p>
-          </div>
-          <div class="search-panel">
-            <input id="cardSearchInput" type="search" aria-label="カードを検索" placeholder="カードを検索">
-            <span id="cardCount" class="detail-muted">0件</span>
-          </div>
-          <div class="segmented" id="cardTabs" role="tablist" aria-label="Card filters"></div>
-          <div id="cardList" class="card-list"></div>
-        </section>
-
-        <section class="view" id="view-detail" aria-labelledby="detail-title">
-          <div class="section-heading">
-            <h2 id="detail-title">Detail</h2>
-            <p id="detailHint">カードを選ぶと詳細が表示されます。</p>
-          </div>
-          <article id="detailPanel" class="detail-panel empty-state">
-            <p>まだカードが選択されていません。</p>
-          </article>
-        </section>
+        <section class="view" id="view-tours" aria-labelledby="tours-title"><div class="section-heading"><h2 id="tours-title">Tours</h2><p>地図を4つの観点から読みます。表示は断定ではなく、見直すための候補です。</p></div><div class="segmented" id="tourTabs" role="tablist" aria-label="Tour filters"></div><div id="tourList" class="card-list"></div></section>
+        <section class="view" id="view-cards" aria-labelledby="cards-title"><div class="section-heading"><h2 id="cards-title">Cards</h2><p>話題、判断基準、未整理の問いをカードで確認します。</p></div><div class="search-panel"><input id="cardSearchInput" type="search" aria-label="カードを検索" placeholder="カードを検索"><span id="cardCount" class="detail-muted">0件</span></div><div class="segmented" id="cardTabs" role="tablist" aria-label="Card filters"></div><div id="cardList" class="card-list"></div></section>
+        <section class="view" id="view-detail" aria-labelledby="detail-title"><div class="section-heading"><h2 id="detail-title">Detail</h2><p id="detailHint">カードを選ぶと詳細が表示されます。</p></div><article id="detailPanel" class="detail-panel empty-state"><p>まだカードが選択されていません。</p></article></section>
       </main>
 
-      <nav class="bottom-nav" aria-label="Main">
-        <button class="nav-button active" data-view="import" type="button">Import</button>
-        <button class="nav-button" data-view="tours" type="button">Tours</button>
-        <button class="nav-button" data-view="cards" type="button">Cards</button>
-        <button class="nav-button" data-view="detail" type="button">Detail</button>
-      </nav>
+      <nav class="bottom-nav" aria-label="Main"><button class="nav-button active" data-view="import" type="button">Import</button><button class="nav-button" data-view="tours" type="button">Tours</button><button class="nav-button" data-view="cards" type="button">Cards</button><button class="nav-button" data-view="detail" type="button">Detail</button></nav>
     </div>
 
-    <template id="cardTemplate">
-      <button class="atlas-card" type="button">
-        <span class="card-kind"></span>
-        <strong class="card-title"></strong>
-        <span class="card-summary"></span>
-        <span class="card-flags"></span>
-        <span class="card-meta"></span>
-      </button>
-    </template>
-
-    <script src="app-v14.js?v=14" defer></script>
+    <template id="cardTemplate"><button class="atlas-card" type="button"><span class="card-kind"></span><strong class="card-title"></strong><span class="card-summary"></span><span class="card-flags"></span><span class="card-meta"></span></button></template>
+    <script src="app-v16.js?v=16" defer></script>
     <script src="app-v15.js?v=15" defer></script>
   </body>
 </html>
