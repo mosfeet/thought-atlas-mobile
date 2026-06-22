@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#f6f4ef">
     <title>Thought Atlas Mobile</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="style.css?v=14">
   </head>
   <body>
     <div class="app-shell">
@@ -40,220 +40,7 @@
               <button id="copyPromptButton" class="small-button" type="button">コピー</button>
             </div>
             <p class="detail-muted">このプロンプトをコピーして、普段使っているAIに貼ります。コピーが拒否された場合は本文が全選択されるので、そのまま手動コピーしてください。</p>
-            <textarea id="promptPreview" class="prompt-preview" readonly aria-label="AIに貼るプロンプト">あなたは、ユーザー本人が見直して編集できる「仮説の思考地図」を作る補助者です。
-
-目的:
-あなたがこのユーザーについて把握している過去の会話・記憶・継続的な文脈と、このプロンプト末尾に任意で貼られた補足素材をもとに、本人が後で編集できる「話題・関心・判断軸・未整理の問い」のカード索引を Atlas Bundle JSON として作ってください。
-
-このタスクは心理プロファイリングではありません。
-ユーザーの内面を外側から当てるのではなく、ユーザーがすでに話したこと・明示した希望や困りごと・繰り返し相談しているテーマを、本人が見直しやすいカードに整理する作業です。
-
-重要:
-- このプロンプト本文、JSONテンプレート、形式説明、自己チェック項目は入力素材ではありません
-- 参照してよい情報は、あなたがこのユーザーとの過去の会話・メモリとして利用できる情報と、任意の補足素材だけです
-- このユーザー本人に関係しない一般論や、テンプレート内の例文を根拠にしないでください
-- 過去の会話・メモリを参照できず、補足素材も空の場合は、JSONを作らず「このAIでは過去文脈を参照できないため、会話履歴やメモを貼ってください」と返してください
-- 明確な根拠が弱い内容は confidence を低くし、推測であることが分かる表現にしてください
-- 心理的な深読み、無意識の断定、人格評価、能力評価、病理化はしないでください
-- 安全上の懸念がある場合は、無理に深い解釈をせず、明示された話題だけを少数・低confidenceでカード化してください
-
-この出力は自己理解のための仮説地図です。
-正解、診断、性格分類、心理判定ではありません。
-
-重要な方針:
-- ユーザーを決めつけない
-- 病名、精神状態、性格タイプ、能力、人格を診断しない
-- 「あなたは〜だ」と断定しない
-- 「〜の可能性がある」「〜という仮説」「〜として見直せる」と書く
-- latent_beliefs は「潜在心理」ではなく、本人の発言から見える作業仮説・判断軸・大事にしていそうな観点として扱う
-- tensions は、本人が明示した迷い、両立したい価値、未整理の問いだけを扱う
-- Shadow は隠れた感情の推定ではなく、本人が明示した摩擦、避けたい作業、迷い、抵抗感、未決着の問いの整理として扱う
-- センシティブな個人情報、固有名詞、第三者名は必要に応じて一般化する
-- evidence / counter_evidence を必ず入れ、反証可能性を残す
-- 出力は必ず JSON としてパース可能にする
-
-参照情報の読み方:
-1. まず繰り返し出てくる関心、価値観、葛藤、行動パターンを探す
-2. 一度だけ出た話題は、重要そうでなければ低い confidence にする
-3. ユーザー本人の発言やメモを根拠にする
-4. AI側の推測だけで強い結論を作らない
-5. 参照できる過去文脈や補足素材が不足している場合は confidence を低くする
-6. evidence には、過去会話・メモリ・補足素材のどれに基づく根拠か分かるように書く
-
-スコアの意味:
-- importance: その人の現在の関心・意思決定にどれほど効いていそうか
-- confidence: 過去会話・メモリ・補足素材などの参照情報から、どれほど根拠があるか
-- shadow_level: 本人が明示した摩擦、避けたい作業、迷い、抵抗感、未決着の問いに関係しそうか
-- tension_level: 本人が明示した価値、希望、制約、選択肢の両立しづらさに関係しそうか
-- exploration_level: まだ探索中、変化中、これから伸びそうなテーマか
-
-スコアの注意:
-- スコアは心理測定ではなく、アプリ内の並び替え・表示優先度のための弱い目印です
-- 根拠が薄い場合は 0.2 以下にしてください
-- 強い根拠なしに 0.7 以上を付けないでください
-
-Tourに効く設計:
-- Career Tour に出したいものは、仕事、役割、収益、学習、生活基盤、将来選択に関係する
-- Shadow Tour に出したいものは、本人が明示した摩擦、避けたい作業、抵抗感、未決着の問いに関係する
-- Recurring Tour に出したいものは、繰り返し出てくる関心や価値観に関係する
-- Emerging Tour に出したいものは、最近出てきた新しい関心や探索に関係する
-
-IDルール:
-- id は英小文字、数字、ハイフンのみ
-- thought_nodes は node- で始める
-- latent_beliefs は belief- で始める
-- tensions は tension- で始める
-- edges の source / target は必ず存在する id を使う
-- tensions の from / to も必ず存在する id を使う
-- id を重複させない
-
-出力量の目安:
-- thought_nodes: 3〜10件
-- latent_beliefs: 0〜5件
-- tensions: 0〜5件
-- edges: 0〜15件
-- 無理に埋めなくて構いません。根拠があるものだけ出してください。
-
-出力形式:
-必ず以下のマーカー内に JSON だけを入れてください。
-マーカー外には説明を書かないでください。
-
-=== ATLAS_BUNDLE_JSON ===
-{
-  "version": "atlas_bundle_v1",
-  "meta": {
-    "title": "My Thought Atlas",
-    "note": "This is a hypothesis map, not a diagnosis."
-  },
-  "thought_nodes": [
-    {
-      "id": "node-short-id",
-      "type": "surface",
-      "title": "表層テーマ名",
-      "summary": "短い説明",
-      "category": "仕事/創作/身体/関係性/価値観など",
-      "importance": 0.0,
-      "confidence": 0.0,
-      "shadow_level": 0.0,
-      "tension_level": 0.0,
-      "exploration_level": 0.0,
-      "keywords": ["keyword"],
-      "evidence": ["根拠"],
-      "counter_evidence": ["反証や例外"]
-    }
-  ],
-  "latent_beliefs": [
-    {
-      "id": "belief-short-id",
-      "title": "潜在思想の仮説",
-      "summary": "短い説明",
-      "importance": 0.0,
-      "confidence": 0.0,
-      "shadow_level": 0.0,
-      "tension_level": 0.0,
-      "exploration_level": 0.0,
-      "keywords": ["keyword"],
-      "evidence": ["根拠"],
-      "counter_evidence": ["反証や例外"],
-      "interpretation": "断定しない読み解き"
-    }
-  ],
-  "tensions": [
-    {
-      "id": "tension-short-id",
-      "title": "A vs B",
-      "summary": "葛藤の説明",
-      "from": "node-or-belief-id",
-      "to": "node-or-belief-id",
-      "strength": 0.0,
-      "status": "active/unresolved/accepted",
-      "evidence": ["根拠"],
-      "question": "未決着の問い"
-    }
-  ],
-  "edges": [
-    {
-      "source": "node-or-belief-id",
-      "target": "node-or-belief-id",
-      "type": "evidence_for/tension_with/related_to",
-      "strength": 0.0,
-      "reason": "関係の理由"
-    }
-  ]
-}
-=== END_ATLAS_BUNDLE_JSON ===
-
-各 thought_node の形式:
-{
-  "id": "node-short-id",
-  "type": "surface",
-  "title": "表層テーマ名",
-  "summary": "短い説明。断定ではなく仮説として書く。",
-  "category": "仕事/創作/身体/関係性/価値観/生活/学習など",
-  "importance": 0.0,
-  "confidence": 0.0,
-  "shadow_level": 0.0,
-  "tension_level": 0.0,
-  "exploration_level": 0.0,
-  "keywords": ["keyword"],
-  "evidence": ["過去会話・メモリ・補足素材などの参照情報に基づく根拠"],
-  "counter_evidence": ["反証、例外、まだ分からない点"]
-}
-
-各 latent_belief の形式:
-{
-  "id": "belief-short-id",
-  "title": "潜在思想の仮説",
-  "summary": "複数の話題に共通していそうな価値観や前提。",
-  "importance": 0.0,
-  "confidence": 0.0,
-  "shadow_level": 0.0,
-  "tension_level": 0.0,
-  "exploration_level": 0.0,
-  "keywords": ["keyword"],
-  "evidence": ["根拠"],
-  "counter_evidence": ["反証、例外、まだ分からない点"],
-  "interpretation": "断定しない読み解き"
-}
-
-各 tension の形式:
-{
-  "id": "tension-short-id",
-  "title": "A vs B",
-  "summary": "二つの価値や欲求がどうぶつかっていそうか。",
-  "from": "node-or-belief-id",
-  "to": "node-or-belief-id",
-  "strength": 0.0,
-  "status": "active",
-  "evidence": ["根拠"],
-  "question": "本人が見直すための未決着の問い"
-}
-
-各 edge の形式:
-{
-  "source": "node-or-belief-id",
-  "target": "node-or-belief-id",
-  "type": "evidence_for",
-  "strength": 0.0,
-  "reason": "関係の理由"
-}
-
-最後の自己チェック:
-JSONを出す前に、以下を確認してください。
-- JSONとしてパース可能か
-- id重複がないか
-- edge/tensionの参照idが存在するか
-- diagnosis, disorder, personality type のような診断表現がないか
-- evidence と counter_evidence が空になっていないか
-- 断定表現が強すぎないか
-
-ここから下は任意の補足素材です。
-あなたがこのユーザーとの過去の会話やメモリを参照できる場合、補足素材が空でも構いません。
-参照できない場合は、会話履歴、メモ、日記、相談内容などをこの区間に貼るよう依頼してください。
-
-=== INPUT_MATERIAL_START ===
-[任意: 追加で参照してほしい会話履歴、メモ、日記、相談内容を貼る]
-=== INPUT_MATERIAL_END ===</textarea>
+            <textarea id="promptPreview" class="prompt-preview" readonly aria-label="AIに貼るプロンプト"></textarea>
           </section>
 
           <section class="paste-panel" aria-labelledby="paste-title">
@@ -290,7 +77,7 @@ JSONを出す前に、以下を確認してください。
               <li>読み込んだAtlasと編集メモは、このブラウザのLocalStorageに保存されます。</li>
               <li>AIへ素材を渡す部分は、ユーザー自身が使うAIサービスの管理下です。</li>
             </ul>
-            <p class="app-version">Local PWA v0.2.13</p>
+            <p class="app-version">Local PWA v0.2.14</p>
             <button id="clearDataButton" class="secondary-button danger-button" type="button">この端末のAtlasを削除</button>
           </section>
 
@@ -317,7 +104,7 @@ JSONを出す前に、以下を確認してください。
         <section class="view" id="view-cards" aria-labelledby="cards-title">
           <div class="section-heading">
             <h2 id="cards-title">Cards</h2>
-            <p>ノード、潜在思想、葛藤をカードで確認します。</p>
+            <p>話題、判断基準、未整理の問いをカードで確認します。</p>
           </div>
           <div class="search-panel">
             <input id="cardSearchInput" type="search" aria-label="カードを検索" placeholder="カードを検索">
@@ -356,6 +143,6 @@ JSONを出す前に、以下を確認してください。
       </button>
     </template>
 
-    <script src="app.js?v=13" defer></script>
+    <script src="app-v14.js?v=14" defer></script>
   </body>
 </html>
