@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#f6f4ef">
     <title>Thought Atlas Mobile</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css?v=9">
+    <link rel="stylesheet" href="style.css?v=10">
   </head>
   <body>
     <div class="app-shell">
@@ -104,10 +104,61 @@ IDルール:
     "title": "My Thought Atlas",
     "note": "This is a hypothesis map, not a diagnosis."
   },
-  "thought_nodes": [],
-  "latent_beliefs": [],
-  "tensions": [],
-  "edges": []
+  "thought_nodes": [
+    {
+      "id": "node-short-id",
+      "type": "surface",
+      "title": "表層テーマ名",
+      "summary": "短い説明。断定ではなく仮説として書く。",
+      "category": "仕事/創作/身体/関係性/価値観/生活/学習など",
+      "importance": 0.0,
+      "confidence": 0.0,
+      "shadow_level": 0.0,
+      "tension_level": 0.0,
+      "exploration_level": 0.0,
+      "keywords": ["keyword"],
+      "evidence": ["入力素材に基づく根拠"],
+      "counter_evidence": ["反証、例外、まだ分からない点"]
+    }
+  ],
+  "latent_beliefs": [
+    {
+      "id": "belief-short-id",
+      "title": "潜在思想の仮説",
+      "summary": "複数の話題に共通していそうな価値観や前提。",
+      "importance": 0.0,
+      "confidence": 0.0,
+      "shadow_level": 0.0,
+      "tension_level": 0.0,
+      "exploration_level": 0.0,
+      "keywords": ["keyword"],
+      "evidence": ["根拠"],
+      "counter_evidence": ["反証、例外、まだ分からない点"],
+      "interpretation": "断定しない読み解き"
+    }
+  ],
+  "tensions": [
+    {
+      "id": "tension-short-id",
+      "title": "A vs B",
+      "summary": "二つの価値や欲求がどうぶつかっていそうか。",
+      "from": "node-or-belief-id",
+      "to": "node-or-belief-id",
+      "strength": 0.0,
+      "status": "active",
+      "evidence": ["根拠"],
+      "question": "本人が見直すための未決着の問い"
+    }
+  ],
+  "edges": [
+    {
+      "source": "node-or-belief-id",
+      "target": "node-or-belief-id",
+      "type": "evidence_for/tension_with/related_to",
+      "strength": 0.0,
+      "reason": "関係の理由"
+    }
+  ]
 }
 === END_ATLAS_BUNDLE_JSON ===
 
@@ -158,7 +209,7 @@ JSONを出す前に、以下を確認してください。
               <li>読み込んだAtlasと編集メモは、このブラウザのLocalStorageに保存されます。</li>
               <li>AIへ素材を渡す部分は、ユーザー自身が使うAIサービスの管理下です。</li>
             </ul>
-            <p class="app-version">Local PWA v0.2.9</p>
+            <p class="app-version">Local PWA v0.2.10</p>
             <button id="clearDataButton" class="secondary-button danger-button" type="button">この端末のAtlasを削除</button>
           </section>
 
@@ -224,6 +275,6 @@ JSONを出す前に、以下を確認してください。
       </button>
     </template>
 
-    <script src="app.js?v=9" defer></script>
+    <script src="app.js?v=10" defer></script>
   </body>
 </html>
