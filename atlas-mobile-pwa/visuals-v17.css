@@ -1,0 +1,47 @@
+.atlas-visual-card { margin-top: 6px; }
+.atlas-visual { width: 100%; margin-top: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
+.network-visual svg { display: block; width: 100%; max-height: 280px; }
+.network-edge { fill: none; stroke: var(--accent); stroke-linecap: round; opacity: 0.25; transition: opacity 140ms ease; }
+.network-edge.is-active { opacity: 0.58; }
+.network-edge.is-muted { opacity: 0.15; }
+.network-node { fill: var(--accent); stroke: var(--surface-strong); stroke-width: 2px; opacity: 0.9; transition: opacity 140ms ease; }
+.network-node.is-active { opacity: 1; }
+.network-node.is-muted { opacity: 0.15; }
+.network-label { fill: var(--muted); font-size: 10.5px; pointer-events: none; }
+.tension-visual { display: grid; gap: 0; }
+.tension-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(92px, 1.2fr) minmax(0, 1fr); align-items: center; min-height: 56px; gap: 8px; }
+.tension-label { color: var(--muted); font-size: 0.72rem; line-height: 1.25; overflow-wrap: anywhere; }
+.tension-label.right { text-align: right; }
+.tension-track { position: relative; height: 2px; background: var(--line); }
+.tension-row.is-unmeasured .tension-track { background: repeating-linear-gradient(90deg, var(--line) 0 5px, transparent 5px 9px); }
+.tension-marker { position: absolute; top: 50%; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); transform: translate(-50%, -50%); box-shadow: 0 0 0 3px var(--surface-strong); }
+.pattern-visual { display: grid; gap: 8px; }
+.pattern-row { display: grid; min-height: 40px; align-content: center; gap: 4px; }
+.pattern-label { color: var(--muted); font-size: 0.72rem; line-height: 1.25; }
+.pattern-bar { position: relative; display: block; height: 10px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.pattern-bar span { display: block; height: 100%; border-radius: inherit; background: var(--accent); opacity: 0.62; }
+.pattern-bar b { position: absolute; right: 6px; top: -4px; color: var(--accent-strong); font-size: 0.68rem; line-height: 1; }
+.card-distribution { margin: 14px 0 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-strong); padding: 12px; box-shadow: var(--shadow); }
+.distribution-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.distribution-heading h3 { margin: 0; font-size: 0.95rem; }
+.distribution-heading p, .distribution-note { margin: 3px 0 0; color: var(--muted); font-size: 0.72rem; line-height: 1.4; }
+.distribution-legend { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 5px 9px; color: var(--muted); font-size: 0.65rem; }
+.distribution-legend span { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.distribution-legend i { display: inline-block; width: 8px; height: 8px; background: var(--accent); }
+.distribution-legend .legend-topic { border-radius: 50%; }
+.distribution-legend .legend-principle { border-radius: 2px; opacity: 0.68; }
+.distribution-legend .legend-question { width: 0; height: 0; border-right: 5px solid transparent; border-bottom: 9px solid var(--accent); border-left: 5px solid transparent; background: transparent; opacity: 0.82; }
+.card-distribution svg { display: block; width: 100%; max-height: 330px; margin-top: 7px; overflow: visible; }
+.distribution-grid { stroke: var(--muted); stroke-width: 1; opacity: 0.55; }
+.distribution-midline { stroke: var(--line); stroke-width: 1; stroke-dasharray: 4 5; }
+.distribution-axis-label, .distribution-axis-title { fill: var(--muted); font-size: 10px; }
+.distribution-point { cursor: pointer; color: var(--accent); outline: none; }
+.distribution-point circle, .distribution-point rect, .distribution-point path { fill: currentColor; stroke: var(--surface-strong); stroke-width: 2; transition: opacity 120ms ease, transform 120ms ease; transform-box: fill-box; transform-origin: center; }
+.distribution-point.kind-belief { opacity: 0.68; }
+.distribution-point.kind-tension { opacity: 0.82; }
+.distribution-point:hover circle, .distribution-point:hover rect, .distribution-point:hover path,
+.distribution-point:focus circle, .distribution-point:focus rect, .distribution-point:focus path { opacity: 1; transform: scale(1.35); }
+@media (max-width: 420px) {
+  .distribution-heading { display: grid; }
+  .distribution-legend { justify-content: flex-start; }
+}
