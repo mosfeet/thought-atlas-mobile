@@ -1,11 +1,11 @@
-const CACHE_NAME = "thought-atlas-mobile-v16";
+const CACHE_NAME = "thought-atlas-mobile-v17";
 const ASSETS = [
   "./",
   "./index.html",
   "./style.css?v=16",
-  "./visuals-v15.css?v=15",
+  "./visuals-v17.css?v=17",
   "./app-v16.js?v=16",
-  "./app-v15.js?v=15",
+  "./app-v17.js?v=17",
   "./manifest.json",
   "./data/sample-atlas.json"
 ];
@@ -16,23 +16,15 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
-    )
-  );
+  event.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))));
   self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-        return response;
-      })
-      .catch(() => caches.match(event.request))
-  );
+  event.respondWith(fetch(event.request).then((response) => {
+    const copy = response.clone();
+    caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+    return response;
+  }).catch(() => caches.match(event.request)));
 });
